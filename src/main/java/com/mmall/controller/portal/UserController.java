@@ -35,4 +35,26 @@ public class UserController {
         }
         return response;
     }
+
+    /**
+     * 退出登陆
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "logout.do",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> logout(HttpSession session){
+        session.removeAttribute(Const.CURRENT_USER);
+        return ServerResponse.createBySuccess();
+    }
+
+    @RequestMapping(value = "register.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> register(User user){
+        return iUserService.register(user);
+    }
+
+    public ServerResponse<String> checkValid(String str,String type){
+        return iUserService.checkValid(str,type);
+    }
 }
